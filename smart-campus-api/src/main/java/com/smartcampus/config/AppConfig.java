@@ -7,6 +7,11 @@ import com.smartcampus.resource.DiscoveryResource;
 import com.smartcampus.resource.RoomResource;
 import com.smartcampus.resource.SensorResource;
 import com.smartcampus.resource.SensorReadingResource;
+import com.smartcampus.exception.RoomNotEmptyExceptionMapper;
+import com.smartcampus.exception.LinkedResourceNotFoundExceptionMapper;
+import com.smartcampus.exception.SensorUnavailableExceptionMapper;
+import com.smartcampus.exception.GlobalExceptionMapper;
+import com.smartcampus.filter.LoggingFilter;
 
 /**
  * JAX-RS Application configuration class that registers all resource classes.
@@ -24,6 +29,15 @@ public class AppConfig extends ResourceConfig {
         register(RoomResource.class);
         register(SensorResource.class);
         register(SensorReadingResource.class);
+        
+        // Register exception mappers
+        register(RoomNotEmptyExceptionMapper.class);
+        register(LinkedResourceNotFoundExceptionMapper.class);
+        register(SensorUnavailableExceptionMapper.class);
+        register(GlobalExceptionMapper.class);
+        
+        // Register filters
+        register(LoggingFilter.class);
         
         // Enable auto-discovery of resources in this package
         packages("com.smartcampus.resource");
