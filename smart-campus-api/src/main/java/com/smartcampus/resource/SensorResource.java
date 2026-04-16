@@ -133,4 +133,24 @@ public class SensorResource {
         
         return Response.noContent().build();
     }
+
+    /**
+     * Sub-resource locator method that returns a SensorReadingResource for managing readings of a specific sensor.
+     * Validates that the sensor exists before returning the sub-resource.
+     *
+     * @param sensorId the id of the sensor
+     * @return a SensorReadingResource instance for managing this sensor's readings
+     * @throws NotFoundException if the sensor is not found (404)
+     */
+    @Path("{sensorId}/readings")
+    public SensorReadingResource getSensorReadings(@PathParam("sensorId") String sensorId) {
+        // Validate that the sensor exists
+        Sensor sensor = dataStore.getSensor(sensorId);
+        
+        if (sensor == null) {
+            throw new NotFoundException("Sensor with id " + sensorId + " not found");
+        }
+        
+        return new SensorReadingResource(sensorId);
+    }
 }
