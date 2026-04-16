@@ -4,6 +4,7 @@ import jakarta.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import com.smartcampus.resource.DiscoveryResource;
+import com.smartcampus.resource.RoomResource;
 
 /**
  * JAX-RS Application configuration class that registers all resource classes.
@@ -18,6 +19,7 @@ public class AppConfig extends ResourceConfig {
         
         // Register all resource classes here
         register(DiscoveryResource.class);
+        register(RoomResource.class);
         
         // Enable auto-discovery of resources in this package
         packages("com.smartcampus.resource");
