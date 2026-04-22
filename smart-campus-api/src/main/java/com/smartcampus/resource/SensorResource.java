@@ -1,5 +1,6 @@
 package com.smartcampus.resource;
 
+import com.smartcampus.exception.LinkedResourceNotFoundException;
 import com.smartcampus.model.Room;
 import com.smartcampus.model.Sensor;
 import com.smartcampus.store.DataStore;
@@ -61,7 +62,7 @@ public class SensorResource {
         Room room = dataStore.getRoom(sensor.getRoomId());
         
         if (room == null) {
-            throw new NotFoundException("Room with id " + sensor.getRoomId() + " not found");
+            throw new LinkedResourceNotFoundException("Room with id " + sensor.getRoomId() + " does not exist");
         }
         
         // Generate UUID for the new sensor

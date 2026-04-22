@@ -1,5 +1,6 @@
 package com.smartcampus.resource;
 
+import com.smartcampus.exception.SensorUnavailableException;
 import com.smartcampus.model.Sensor;
 import com.smartcampus.model.SensorReading;
 import com.smartcampus.store.DataStore;
@@ -58,6 +59,11 @@ public class SensorReadingResource {
         
         if (sensor == null) {
             throw new NotFoundException("Sensor with id " + sensorId + " not found");
+        }
+        
+        // Check if sensor is under maintenance
+        if ("MAINTENANCE".equals(sensor.getStatus())) {
+            throw new SensorUnavailableException("Sensor is currently under maintenance and cannot accept readings");
         }
         
         // Generate UUID for the reading id

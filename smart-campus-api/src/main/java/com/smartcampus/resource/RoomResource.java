@@ -1,5 +1,6 @@
 package com.smartcampus.resource;
 
+import com.smartcampus.exception.RoomNotEmptyException;
 import com.smartcampus.model.Room;
 import com.smartcampus.store.DataStore;
 import jakarta.ws.rs.*;
@@ -100,9 +101,7 @@ public class RoomResource {
         
         // Check if room has sensors
         if (room.getSensorIds() != null && !room.getSensorIds().isEmpty()) {
-            return Response.status(Response.Status.CONFLICT)
-                    .entity("Cannot delete room with active sensors")
-                    .build();
+            throw new RoomNotEmptyException("Cannot delete room with active sensors");
         }
         
         // Remove the room
